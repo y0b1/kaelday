@@ -22,7 +22,6 @@ body {
     background-position: center;
     background-attachment: fixed;
     z-index: -2;
-    filter: brightness(0.6) blur(50px);
 }
 
 /* Dark overlay for better text readability */
