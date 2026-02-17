@@ -1,23 +1,3 @@
-// Check if content should be blurred
-function checkBlurStatus() {
-    const now = new Date();
-    const unblurDate = new Date('2026-02-18T00:00:00').getTime(); // February 18 at midnight
-    const currentTime = now.getTime();
-
-    const container = document.querySelector('.container');
-    const blurOverlay = document.getElementById('blur-overlay');
-
-    if (currentTime < unblurDate) {
-        // Blur the content
-        container.classList.add('blurred');
-        blurOverlay.classList.add('visible');
-    } else {
-        // Remove blur if it's past the date
-        container.classList.remove('blurred');
-        blurOverlay.classList.remove('visible');
-    }
-}
-
 // Confetti effect on page load
 function createConfetti() {
     const confettiCount = 50;
@@ -59,13 +39,9 @@ function createConfetti() {
     }
 }
 
-// Trigger confetti and check blur on page load
+// Trigger confetti on page load
 window.addEventListener('load', () => {
-    checkBlurStatus();
     createConfetti();
-    
-    // Check blur status every second to auto-unblur when time passes
-    setInterval(checkBlurStatus, 1000);
 });
 
 // Optional: Add more confetti on click
