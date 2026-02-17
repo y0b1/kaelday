@@ -1,0 +1,292 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    overflow: hidden;
+    height: 100vh;
+}
+
+/* Background Layer - Replace images/background.jpg with your photo */
+.background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('images/background.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    z-index: -2;
+    filter: brightness(0.6) blur(50px);
+}
+
+/* Dark overlay for better text readability */
+.background::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.3);
+    z-index: -1;
+}
+
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    padding: 20px;
+    transition: filter 0.3s ease;
+}
+
+.container.blurred {
+    filter: blur(50px);
+    pointer-events: none;
+}
+
+#blur-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 9998;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+#blur-overlay.visible {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+#blur-overlay.visible .blur-message {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.blur-message {
+    background: white;
+    padding: 40px;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    opacity: 0;
+    transform: scale(0.8);
+    transition: all 0.3s ease;
+}
+
+.blur-message h2 {
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.blur-message p {
+    font-size: 1.1rem;
+    color: #666;
+}
+
+.content {
+    display: flex;
+    gap: 60px;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    max-width: 1200px;
+    animation: fadeIn 1s ease-in;
+}
+
+.foreground-image-container {
+    flex: 0 0 300px;
+    max-width: 100%;
+}
+
+.foreground-image {
+    width: 100%;
+    height: auto;
+    border-radius: 20px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    border: 5px solid white;
+    animation: popIn 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+    transition: transform 0.3s ease;
+}
+
+.foreground-image:hover {
+    transform: scale(1.05);
+}
+
+.text-content {
+    flex: 1;
+    min-width: 300px;
+    color: white;
+    text-align: center;
+    z-index: 1;
+}
+
+.title {
+    font-size: 4rem;
+    font-weight: 700;
+    margin-bottom: 15px;
+    text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.7);
+    animation: slideDown 0.8s ease;
+}
+
+.subtitle {
+    font-size: 1.5rem;
+    margin-bottom: 30px;
+    opacity: 0.95;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+    animation: slideDown 0.8s ease 0.2s both;
+}
+
+.message {
+    font-size: 1.2rem;
+    margin-top: 30px;
+    opacity: 0.9;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+    animation: slideDown 0.8s ease 0.4s both;
+}
+
+/* Emoji Animation */
+.emoji-container {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    margin: 30px 0;
+    height: 100px;
+}
+
+.emoji {
+    font-size: 3rem;
+    display: inline-block;
+    animation: float 3s ease-in-out infinite;
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+}
+
+.emoji:nth-child(1) {
+    animation-delay: 0s;
+}
+
+.emoji:nth-child(2) {
+    animation-delay: 0.3s;
+}
+
+.emoji:nth-child(3) {
+    animation-delay: 0.6s;
+}
+
+.emoji:nth-child(4) {
+    animation-delay: 0.9s;
+}
+
+.emoji:nth-child(5) {
+    animation-delay: 1.2s;
+}
+
+/* Animations */
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-20px);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes popIn {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Confetti Animation */
+@keyframes confetti-fall {
+    to {
+        transform: translateY(100vh) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        padding: 10px;
+    }
+
+    .content {
+        gap: 30px;
+        flex-direction: column;
+    }
+
+    .title {
+        font-size: 2.5rem;
+    }
+
+    .subtitle {
+        font-size: 1.1rem;
+    }
+
+    .foreground-image-container {
+        flex: 0 0 250px;
+    }
+
+    .message {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .title {
+        font-size: 1.8rem;
+    }
+
+    .subtitle {
+        font-size: 0.9rem;
+    }
+
+    .emoji-container {
+        gap: 8px;
+    }
+
+    .emoji {
+        font-size: 2rem;
+    }
+}
